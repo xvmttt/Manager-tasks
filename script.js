@@ -60,28 +60,37 @@ taskList.addEventListener('click', (event)=>{
 
 
 window.onload = async () => {
+
     const userId = localStorage.getItem('current_user_id');
-    
+
     const response = await fetch(`http://127.0.0.1:5000/get_tasks?user_id=${userId}`);
     const tasks = await response.json();
 
     tasks.forEach(task => {
+
         const taskItem = document.createElement('div');
         taskItem.className = 'task-item';
+
         taskItem.innerHTML = `
-            <span>${task.taskText}</span>
-            <button class="delete-btn">✕</button>`;
+            <span class="text_task">${task.taskText}</span>
+            <button class="delete-btn">✕</button>
+            <span class="deadline">${task.deadline}</span>
+            <span class="time_left">${task.time_left}</span>
+        `;
+
         taskList.append(taskItem);
+
     });
+
 };
 
 addBtn.addEventListener('click', (event) => {
-    const text = inputTask.value.trim();
-    const data = inputData.value.trim();
+    const text_task = inputTask.value.trim();
+    const deadline = inputData.value.trim();
     const taskContainer = document.querySelector('#tasks-list');
 
     try {
-        if (text === '') {
+        if (text_task === '') {
         alert('Поле не может быть пустым!');
         return;
          };
@@ -89,7 +98,7 @@ addBtn.addEventListener('click', (event) => {
         fetch('http://127.0.0.1:5000/logic', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({taskContainer:text, user_id: localStorage.getItem('current_user_id'), data: text})
+            body: JSON.stringify({taskContainer:text_task, user_id: localStorage.getItem('current_user_id'), deadline: deadline})
         })
 
 
@@ -102,22 +111,21 @@ addBtn.addEventListener('click', (event) => {
         });
     })
         .then(data =>{
-            console.log('пытаемся добавить');
             const taskItem = document.createElement('div');
             taskItem.className = 'task-item';
             taskItem.innerHTML = `
-            <span class="text_task">${text}</span>
+            <span class="text_task">${text_task}</span>
             <button class="delete-btn">✕</button>
-            <span class = "deadline">${data}</span>`;
+            <span class = "deadline">${deadline}</span>
+            <span class = "time_left">${data.time_left}</span>`;
 
-            taskContainer.append(taskItem);
+            taskContainer.appendChild(taskItem);
 
             inputTask.value = '';
+            inputData.value = '';
             newtask.classList.remove('active');
-            console.log(data.message);
-
         })
-    } catch (error) {
+    }catch (error) {
         console.error('Ошибка:', error);
         alert('Не удалось добавить задачу: ' + error.message);
     }
@@ -126,7 +134,7 @@ addBtn.addEventListener('click', (event) => {
 logoutbtn.addEventListener('click', (event)=> {
     localStorage.clear();
     setTimeout(() => {
-            window.location.href = 'main.html';
+            window.location.href = 'index.html';
         }, 100);
 
 })

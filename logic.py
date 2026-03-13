@@ -66,7 +66,6 @@ def savetasks():
     user_id = data.get('user_id')
     task_text = data.get('taskContainer')
     deadline = data.get('deadline')
-    print(deadline, task_text)
     deadline_time = datetime.strptime(deadline, "%Y-%m-%d")
     now = datetime.now()
     time_left = deadline_time - now

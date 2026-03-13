@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>Менеджер задач</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class = welcome_field>
+        <h1 class = 'welcome-text'>Приветствую в Менеджер задач</h2>
+        <button class="first_btn" id="first_btn">Войти</button>
+    </div>
+
+    <article class="card">
+        <div>
+            <form class ="registr" id="registrForm">
+                <input type="text" name ="username" placeholder="Имя пользователя" required>
+                <input type="password"name ="password" placeholder="Не менее 8 символов" required>
+                <button type="submit">Зарегистрироваться</button>
+            </form>
+            <form class="login" id="loginForm" style="display: none;">
+                <div class="input-group">
+                    <input type="text" name ="username" placeholder="Имя пользователя" required>
+                </div>
+                <input type="password" name ="password" placeholder="Введите пароль" required>
+                <button type="submit">Авторизоваться</button>
+            </form>
+            <div class="registrtext" id="registrtext" style="display: none;">
+                <p>Ещё нету аккаунта?</p>
+                <button type="button" id="showRegistr">Регистрация</button>
+            </div>
+            <div class="logintext" id="logintext">
+                <p>Уже есть аккаунт?</p>
+                <button type="button" id="showLogin">Авторизация</button>
+            </div>
+        </div>
+    </article>
+    <div id="customAlert" class="sms" style="display: none;">
+        <div class="sms-content">
+            <p id="alertMessage">Сообщение</p>
+            <button id="closeAlert">Ок</button>
+        </div>
+    </div>
+    <script src="scrip.js"></script>
+</body>
